@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Chat — {{ active_doc }}</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dark">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="{{ url_for('static', filename='images/bot.png') }}" alt="Bot" class="bot-small" />
+        <h3>Bot</h3>
+      </div>
+      <nav>
+        <a href="{{ url_for('index') }}" class="nav-item">🏠 Home</a>
+        <a href="#new" class="nav-item">➕ New Chat</a>
+      </nav>
+      <div class="doc-links">
+        <h4>Documents</h4>
+        <ul>
+          {% for d in docs %}
+            <li {% if d==active_doc %}class="active"{% endif %}>
+              <a href="{{ url_for('chat', filename=d) }}">{{ d }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="main-header">
+        <h1>{{ active_doc }}</h1>
+        <div class="read-controls">
+          <button id="readPlay" class="btn">Play</button>
+          <button id="readPause" class="btn">Pause</button>
+          <button id="readResume" class="btn">Resume</button>
+          <button id="readStop" class="btn">Stop</button>
+        </div>
+      </header>
+
+      <section class="chat-area">
+        <div id="history" class="history">
+          {% for item in history %}
+            <div class="pair">
+              <div class="q">Q: {{ item.q }}</div>
+              <div class="a">A: <pre class="answer-text">{{ item.a }}</pre>
+                <button class="btn play-answer">🔊 Play</button>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <footer class="composer">
+        <input id="question" placeholder="Ask a question about the document..." />
+        <button id="askBtn" class="btn primary">Ask</button>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const ACTIVE_DOC = "{{ active_doc }}";
+  </script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

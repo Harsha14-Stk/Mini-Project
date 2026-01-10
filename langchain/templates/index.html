@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Smart Document Chatbot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dark">
+  <div class="hero">
+    <div class="hero-left">
+      <img src="{{ url_for('static', filename='images/bot.png') }}" alt="Bot" class="bot-logo" />
+      <h1>Smart Document Chatbot</h1>
+      <p class="tag">Upload — Read — Chat — Listen</p>
+      <a href="#upload" class="cta">Start Now</a>
+    </div>
+    <div class="hero-right card" id="upload">
+      <h2>Upload Document</h2>
+      <form method="post" enctype="multipart/form-data">
+        <label class="filebox">
+          <input type="file" name="file" accept=".pdf,.txt" required>
+          <span>Choose file</span>
+        </label>
+        <button class="btn primary" type="submit">Upload & Process</button>
+      </form>
+
+      <h3>Available Documents</h3>
+      <ul class="doc-list">
+        {% for d in docs %}
+          <li><a href="{{ url_for('chat', filename=d) }}">{{ d }}</a></li>
+        {% else %}
+          <li><em>No documents uploaded yet</em></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

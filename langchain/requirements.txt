@@ -1,0 +1,12 @@
+flask
+pymongo
+PyPDF2
+chardet
+# optional (only if you want the vectorstore+llm chain)
+faiss-cpu
+langchain
+langchain_huggingface
+langchain_google_genai
+langchain_community
+langchain_text_splitters
+python-dotenv
